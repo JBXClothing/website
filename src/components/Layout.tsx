@@ -26,21 +26,15 @@ const Layout = ({ children }) => {
       <header className="py-4 md:py-6 border-b">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between">
-            {/* Left Navigation Links */}
             <nav className="flex items-center justify-start space-x-4 mb-4 md:mb-0">
               <AnimatedLink href="/about">About</AnimatedLink>
               <AnimatedLink href="/terms-of-sale">Terms of Sale</AnimatedLink>
             </nav>
 
-            {/* Center Navigation Links */}
             <div className="flex-1 flex items-center justify-center space-x-4 mb-4 md:mb-0">
-              <AnimatedLink href="/mens">Mens</AnimatedLink>
-              <AnimatedLink href="/womens">Womens</AnimatedLink>
-              <AnimatedLink href="/kids">Kids</AnimatedLink>
-              <AnimatedLink href="/accessories">Accessories</AnimatedLink>
+              <AnimatedLink href="/">Home</AnimatedLink>
             </div>
 
-            {/* Right Icons */}
             <div className="flex items-center space-x-3">
               <button
                 className="p-2 text-gray-800 hover:text-blue-600 rounded-md transition"
@@ -60,7 +54,7 @@ const Layout = ({ children }) => {
                 </a>
               </Link>
               <button
-                className="relative p-2 text-gray-800 hover:text-blue-600 rounded-md transition"
+                className="snipcart-checkout relative p-2 text-gray-800 hover:text-blue-600 rounded-md transition"
                 aria-label="Cart"
               >
                 {cartHasItems && (

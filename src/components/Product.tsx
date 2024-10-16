@@ -12,7 +12,9 @@ const Product = (product) => {
   const { addItem } = useWishlistDispatch();
   const { isSaved } = useWishlistState();
 
-  const { id, name, variants } = product;
+  const { id, name: originalName, variants } = product;
+  const isMens = originalName.startsWith("Mens |"); // Check if the product is "Mens"
+  const baseName = originalName.replace(/^Mens \| /, ""); // Remove "Mens |" from name
   const [firstVariant] = variants;
   const oneStyle = variants.length === 1;
 
@@ -39,8 +41,6 @@ const Product = (product) => {
 
   const onWishlist = isSaved(id);
 
-  console.log(product)
-
   return (
     <article className="border border-gray-200 rounded bg-white flex flex-col relative">
       <button
@@ -53,7 +53,10 @@ const Product = (product) => {
           animate={{ scale: onWishlist ? 1.2 : 1 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
-          <Heart color={onWishlist ? "red" : "gray"} fill={onWishlist ? "red" : "none"} />
+          <Heart
+            color={onWishlist ? "red" : "gray"}
+            fill={onWishlist ? "red" : "none"}
+          />
         </motion.div>
       </button>
       <div className="flex items-center justify-center flex-1 sm:flex-shrink-0 w-full p-6">
@@ -62,17 +65,30 @@ const Product = (product) => {
             src={activeVariantFile.preview_url}
             width={250}
             height={250}
-            alt={`${activeVariant.name} ${name}`}
-            title={`${activeVariant.name} ${name}`}
+            alt={`${activeVariant.name} ${baseName}`}
+            title={`${activeVariant.name} ${baseName}`}
           />
         )}
       </div>
       <div className="flex-1 p-6 pt-0">
         <div className="text-center">
-          <p className="mb-1 font-semibold text-gray-900">{name}</p>
+          <p className="mb-1 font-semibold text-gray-900">{baseName}</p>
           <p className="text-sm text-gray-500">{formattedPrice}</p>
         </div>
       </div>
+
+      <div className="flex flex-row justify-center items-center space-x-4">
+        {isMens && (
+          <div className="text-center text-sm font-semibold text-blue-600">
+            <p>Mens</p>
+          </div>
+        )}
+
+        <div className="text-center text-sm font-medium text-gray-500 bg-gray-100 rounded px-2">
+          Worldwide Shipping
+        </div>
+      </div>
+
       <div className="p-3 flex flex-col sm:flex-row justify-center items-center">
         <VariantPicker
           value={activeVariantExternalId}
@@ -89,7 +105,7 @@ const Product = (product) => {
           data-item-url={`/api/products/${activeVariantExternalId}`}
           data-item-description={activeVariant.name}
           data-item-image={activeVariantFile.preview_url}
-          data-item-name={name}
+          data-item-name={originalName}
         >
           Add to Cart
         </button>
