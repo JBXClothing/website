@@ -20,6 +20,7 @@ export default async function handler(
 
   try {
     const { result } = await printful.get(`store/variants/@${id}`);
+    console.log(result.headers);
 
     res.setHeader("Cache-Control", "s-maxage=600, stale-while-revalidate");
 
