@@ -21,7 +21,7 @@ export default async function handler(
   try {
     const { result } = await printful.get(`store/variants/@${id}`);
 
-    res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");
+    res.setHeader("Cache-Control", "s-maxage=600, stale-while-revalidate");
 
     res.status(200).json({
       id: id as string,
